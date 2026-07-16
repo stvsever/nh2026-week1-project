@@ -1,0 +1,6 @@
+# Cached raw downloads are reproducible via src/pipeline/01_fetch_data.py
+raw/*.tsv
+raw/*.json
+# keep the processed matrices, comparison tables and figures under version control
+!processed/
+!figures/

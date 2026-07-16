@@ -4,10 +4,8 @@
 # `src/projectlib/__init__.py` in your repository.
 name = "projectlib"
 version = "0.1.0"
-# Make sure to edit the description and authors too!
-description = """A library for Week-1 Group Projects of NeuroHackademy 2025."""
-authors = [{name="Noah C. Benson", email="nben@uw.edu"},
-           {name="Ariel Rokem", email="arokem@uw.edu"}]
+description = """Predicting the PNC p-factor from demographics, structural, and functional MRI (NeuroHackademy 2026 week-1 project)."""
+authors = [{name="stijn van severen", email="stijn.vanseveren@gmail.com"}]
 license = {"text"="MIT"}
 readme = "README.md"
 requires-python = ">=3.8"
@@ -36,12 +34,20 @@ classifiers = [
 # Any other libraries your library depends on should be listed here:
 dependencies = [
      'cloudpathlib[s3,gs,azure] >= 0.18.0',
-     'scikit-learn',
+     'scikit-learn >= 1.3',
      'numpy',
-     'pandas']
+     'pandas',
+     'scipy',
+     'matplotlib',
+     'xgboost',
+     'shap',
+     'nilearn >= 0.10',
+     'nibabel',
+     'pyarrow',
+     'joblib']
+# rbclib is preinstalled on the NeuroHackademy Hub; off-Hub install it with:
+#   pip install "git+https://github.com/Neurohackademy2026/rbclib"
 
-# Make sure to update this to match your GitHub account (you can use the
-# account of any group member).
 [project.urls]
-homepage = "https://github.com/NeuroHackademy2025/week1-project-template"
-repository = "https://github.com/NeuroHackademy2025/week1-project-template"
+homepage = "https://github.com/stvsever/nh2026-week1-project"
+repository = "https://github.com/stvsever/nh2026-week1-project"

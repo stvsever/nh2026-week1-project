@@ -1,0 +1,24 @@
+# Run:  cd docker && docker compose up --build
+# Then open http://localhost:8888/lab  (no token) and run pfactor_multimodal_prediction.ipynb.
+# The whole repo is mounted read-write at /project, so data in src/data and outputs in
+# src/data/figures, src/data/processed, and src/results all persist on the host.
+services:
+  pfactor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pfactor-multimodal:latest
+    container_name: pfactor-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ..:/project
+    working_dir: /project/src/jupiter_notebooks
+    # Uncomment on a CUDA host (with the NVIDIA Container Toolkit) to expose the GPU to XGBoost:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

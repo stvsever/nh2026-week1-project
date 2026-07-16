@@ -1,0 +1,5 @@
+# Build context is this docker/ folder, so only requirements.txt needs to ship into the image.
+# The repository (code + data) is bind-mounted at runtime, never copied into the image.
+*
+!requirements.txt
+!Dockerfile

@@ -160,3 +160,18 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# --- RBC/PNC project data: keep small tables + the portable dataset, ignore multi-GB caches ---
+src/data/raw/sub-*
+src/data/raw/xcpd/
+src/data/logs/
+src/data/nilearn_cache/
+src/data/processed/*.parquet
+src/data/processed/*.joblib
+src/data/**/.DS_Store
+# also cover the old top-level data/ location if it reappears
+data/raw/sub-*
+data/raw/xcpd/
+.DS_Store
+.idea/
+src/jupiter_notebooks/_*.ipynb
