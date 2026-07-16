@@ -43,6 +43,7 @@ dependencies = [
      'shap',
      'nilearn >= 0.10',
      'nibabel',
+     'torch >= 2.2',
      'pyarrow',
      'joblib']
 # rbclib is preinstalled on the NeuroHackademy Hub; off-Hub install it with:

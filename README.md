@@ -12,9 +12,12 @@ The whole analysis is one self-contained notebook:
 
 ## Main findings
 
-We search a grid of **9 feature tiers x 9 ML algorithms** (Ridge, ElasticNet, KernelRidge, SVR, RandomForest,
-HistGradientBoosting, XGBoost, MLP, Stacking) with leakage-free nested cross-validation: the grid is screened with a
-single shuffled 5-fold split, and the winning configuration is confirmed with repeated (5x) 5-fold cross-validation.
+We search a grid of **9 feature tiers x 10 ML algorithms** (Ridge, ElasticNet, KernelRidge, SVR, RandomForest,
+HistGradientBoosting, XGBoost, MLP, Stacking, and a **transformer with cross-attention for multimodal fusion**) with
+leakage-free nested cross-validation: the grid is screened with a single shuffled 5-fold split, and the winning
+configuration is confirmed with repeated (5x) 5-fold cross-validation. The transformer (PyTorch) uses the Apple-Metal
+or CUDA GPU when present; as expected on small tabular data it does not beat the regularized linear models, which the
+leaderboard reports honestly.
 
 - **Best configuration: demographics + global structural brain, with a regularized linear model (Ridge /
   ElasticNet) or a light stacking ensemble.** Held-out **R-squared about 0.08**, predicted-observed **r about 0.29**.

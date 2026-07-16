@@ -22,10 +22,13 @@ Docker, and on JupyterHub.
 
 ## ML algorithms compared
 
-Ridge, ElasticNet, KernelRidge (RBF), SVR (RBF), RandomForest, HistGradientBoosting, XGBoost, a small MLP, and a
-Stacking ensemble. Each self-tunes its hyperparameters by an inner cross-validation, so the outer loop is a true
-nested, held-out estimate. The grid is screened with a single shuffled 5-fold split, and the winning configuration is
-then confirmed with repeated (5x) shuffled 5-fold cross-validation.
+Ridge, ElasticNet, KernelRidge (RBF), SVR (RBF), RandomForest, HistGradientBoosting, XGBoost, a small MLP, a Stacking
+ensemble, and a **transformer with cross-attention for multimodal fusion** (PyTorch: each modality is encoded to a
+token, a transformer applies cross-modal self-attention, and a learnable fusion token cross-attends to the modalities;
+it uses the Apple-Metal or CUDA GPU when available). Each self-tunes its hyperparameters by an inner cross-validation,
+so the outer loop is a true nested, held-out estimate. The grid is screened with a single shuffled 5-fold split, and
+the winning configuration is confirmed with repeated (5x) shuffled 5-fold cross-validation. On small tabular data the
+regularized linear models match or beat the deep net, and the leaderboard shows this.
 
 ## Result (the honest ceiling)
 
