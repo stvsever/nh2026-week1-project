@@ -12,11 +12,12 @@ The whole analysis is one self-contained notebook:
 
 ## Main findings
 
-We search a grid of **feature tiers x ML algorithms** with leakage-free nested cross-validation and pick the
-configuration that maximizes held-out R-squared.
+We search a grid of **9 feature tiers x 9 ML algorithms** (Ridge, ElasticNet, KernelRidge, SVR, RandomForest,
+HistGradientBoosting, XGBoost, MLP, Stacking) with leakage-free nested cross-validation: the grid is screened with a
+single shuffled 5-fold split, and the winning configuration is confirmed with repeated (5x) 5-fold cross-validation.
 
 - **Best configuration: demographics + global structural brain, with a regularized linear model (Ridge /
-  ElasticNet) or a light stacking ensemble.** Held-out **R-squared about 0.08**, predicted-observed **r about 0.28**.
+  ElasticNet) or a light stacking ensemble.** Held-out **R-squared about 0.08**, predicted-observed **r about 0.29**.
 - **More brain features do not help.** Adding the 102 Desikan cortical parcels or high-dimensional functional
   connectivity *lowers* held-out R-squared through overfitting. The fine-grained brain features are largely
   redundant with age (cortical thickness correlates with age at r about 0.37, stronger than age correlates with
@@ -29,13 +30,16 @@ configuration that maximizes held-out R-squared.
 
 ### Why R-squared is not higher (and that is fine)
 
-Out-of-sample brain-based prediction of a psychopathology factor is genuinely capped low: r-squared roughly 0.02
-to 0.15 across the literature ([Xia et al. 2018, Nat Commun, PNC p-factor + connectivity](https://www.nature.com/articles/s41467-018-05317-y)).
-The limit is set by the target's reliability and the small, distributed nature of brain-behavior associations, not
-by the pipeline. R-squared 0.08 is the same result as a predicted-observed correlation r of about 0.28, which is
-exactly what PNC papers report (many headline the correlation). A pipeline showing R-squared above 0.3 here would
-be leaking (e.g. using the sibling symptom scales) or overfitting. Negative R-squared for a bad tier x model cell
-is legitimate (worse than predicting the mean); the search rejects those.
+Out-of-sample brain-based prediction of a psychopathology factor is genuinely capped low, and modern large-sample
+work confirms it: [Marek et al. 2022, Nature](https://www.nature.com/articles/s41586-022-04492-9) show reproducible
+brain-behavior effects are small (r about 0.1 to 0.2, needing thousands of subjects), and
+[Jung et al. 2023](https://pubmed.ncbi.nlm.nih.gov/36580867/) predict the p-factor from ABCD resting connectivity
+(n = 6,905) at r = 0.16 ([Xia et al. 2018, Nat Commun](https://www.nature.com/articles/s41467-018-05317-y) is the
+canonical PNC study). Our r about 0.29 is at or above the top of that range and higher than the large-sample ABCD
+result. R-squared 0.08 is the same result as r about 0.29 (many papers headline the correlation). R-squared above
+0.3 for out-of-sample p-factor prediction is not established in the literature and would indicate leakage (e.g. the
+sibling symptom scales) or overfitting. Negative R-squared for a bad tier x model cell is legitimate (worse than
+predicting the mean); the search rejects those.
 
 ## Repository layout
 

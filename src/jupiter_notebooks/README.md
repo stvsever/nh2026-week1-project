@@ -13,38 +13,45 @@ Docker, and on JupyterHub.
 | 1 | demographics | age, sex, BMI, race, ethnicity, handedness, educations (one age term, no age^2) |
 | 2 | + global | + global structural (eTIV, tissue-class volume fractions, mean thickness, pial area) |
 | 3 | + subcortical | + aseg subcortical volumes (bilateral mean + asymmetry) |
-| 4 | + cortical (full struct) | + Desikan (aparc) cortical thickness/area/gray-volume |
-| 5 | demo + FC cortical | + 14 cortical within/between Yeo-7 network connectivity |
-| 6 | demo + FC all | + 14 cortical and 16 subcortical connectivity features |
-| 7 | lean multimodal | demographics + global + limbic subcortical + cortical FC |
-| 8 | rich multimodal | everything (all structural + all functional) |
+| 4 | + cortical (full struct) | + Desikan (aparc) cortical thickness/area/gray-volume (all 34 regions) |
+| 5 | theory structural | demographics + global + limbic subcortical + theory-based cortical thickness (DMN, cingulo-opercular, limbic cortex) |
+| 6 | demo + FC cortical | + 14 cortical within/between Yeo-7 network connectivity |
+| 7 | demo + FC all | + 14 cortical and 16 subcortical connectivity features |
+| 8 | lean multimodal | theory structural (cortex + subcortex) + cortical FC |
+| 9 | rich multimodal | everything (all structural + all functional) |
 
 ## ML algorithms compared
 
-Ridge, ElasticNet, SVR (RBF), HistGradientBoosting, and a Stacking ensemble. Each self-tunes its hyperparameters by an
-inner cross-validation, so the outer 5-fold loop is a true nested, held-out estimate.
+Ridge, ElasticNet, KernelRidge (RBF), SVR (RBF), RandomForest, HistGradientBoosting, XGBoost, a small MLP, and a
+Stacking ensemble. Each self-tunes its hyperparameters by an inner cross-validation, so the outer loop is a true
+nested, held-out estimate. The grid is screened with a single shuffled 5-fold split, and the winning configuration is
+then confirmed with repeated (5x) shuffled 5-fold cross-validation.
 
 ## Result (the honest ceiling)
 
-The winner is chosen automatically: **tier 2 (demographics + global structural) with a regularized linear model or a
-light stacking ensemble**.
+The winner is chosen automatically: in practice **demographics + global structural with a regularized linear model or
+a light stacking ensemble**.
 
-- **p_factor: held-out R-squared about 0.08, correlation r about 0.28.**
-- Adding cortical parcels or high-dimensional connectivity **lowers** held-out R-squared (overfitting; the fine-grained
-  brain features are largely age-redundant). Functional connectivity adds little over demographics + global structure.
+- **p_factor: held-out R-squared about 0.08, correlation r about 0.29.**
+- Adding the full cortical parcellation or high-dimensional connectivity **lowers** held-out R-squared (overfitting;
+  the fine-grained brain features are largely age-redundant). The curated theory-structural tier (cortex + subcortex)
+  is competitive with the demographic tiers; functional connectivity adds little.
 - Dimensions (winning config): p_factor ~0.08 is the most predictable; attention ~0.06; internalizing and
   externalizing near zero. The sub-dimensions are **not** more predictable than the general factor.
 
-Out-of-sample brain-based p-factor prediction is genuinely capped at r-squared roughly 0.02 to 0.15
-([Xia et al. 2018, Nat Commun](https://www.nature.com/articles/s41467-018-05317-y)); r about 0.28 is exactly what PNC
-papers report. R-squared above ~0.3 here would be leakage or overfitting.
+Modern large-sample work confirms the ceiling: [Marek et al. 2022, Nature](https://www.nature.com/articles/s41586-022-04492-9)
+(brain-behavior effects are small, r ~ 0.1 to 0.2) and [Jung et al. 2023](https://pubmed.ncbi.nlm.nih.gov/36580867/)
+(p-factor from ABCD connectivity, n = 6,905, r = 0.16). Our r ~ 0.29 is at or above the top of that range. R-squared
+above ~0.3 for out-of-sample p-factor prediction is not established in the literature and would indicate leakage or
+overfitting.
 
 ## Brain-related findings (nilearn)
 
-Two delta correlation maps in the exploration section: a **volumetric mosaic** of subcortical volume vs p-factor
-(Harvard-Oxford atlas) and a **glass-brain connectome** of the 7 Yeo networks whose edges are the between-network
-FC vs p-factor correlation. Both need internet on first run (nilearn caches the atlases) and fall back to bar charts
-otherwise. Every association is small (|r| < 0.1), the honest brain-behavior picture.
+Two delta correlation maps in the exploration section: a **whole-brain volumetric mosaic** of cortical (Desikan,
+mapped to Harvard-Oxford) and subcortical gray-matter volume vs p-factor, and a **bilateral glass-brain connectome**
+of the 7 Yeo networks (nodes at Schaefer-derived centroids) whose edges are the between-network FC vs p-factor
+correlation. Both need internet on first run (nilearn caches the atlases) and fall back to bar charts otherwise.
+Every association is small (|r| < 0.1), the honest brain-behavior picture.
 
 ## Outputs
 
