@@ -1,0 +1,5 @@
+,model,n_scored,R2,r,MAE,RMSE,slope,cv_R2,cv_r
+p_factor,demo+global (ENet),320,0.0281,0.2068,0.7748,0.9452,0.0669,0.1051,0.3244
+internalizing,demo+global (ENet),320,0.0125,0.1233,0.8624,1.0017,0.0217,0.0327,0.1812
+externalizing,demo (KRR),320,0.043,0.221,0.6208,0.8573,0.0321,0.0208,0.1443
+attention,demo (KRR),320,0.1058,0.3576,0.7905,1.0023,0.0764,0.0518,0.2289

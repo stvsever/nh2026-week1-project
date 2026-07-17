@@ -1,0 +1,82 @@
+{
+  "per_target": {
+    "p_factor": {
+      "model": "demo+global (ENet)",
+      "n_train": 1273,
+      "cv_R2": 0.1051,
+      "cv_r": 0.3244,
+      "screen": {
+        "demo (KRR)": 0.1015,
+        "demo+global (ENet)": 0.1065,
+        "demo+global+FC (ENet)": 0.1015,
+        "demo+FC (ENet)": 0.0931,
+        "multimodal blend": 0.1055
+      },
+      "n_scored": 320,
+      "heldout_R2": 0.0281,
+      "heldout_r": 0.2068,
+      "heldout_MAE": 0.7748,
+      "heldout_RMSE": 0.9452,
+      "heldout_slope": 0.0669
+    },
+    "internalizing": {
+      "model": "demo+global (ENet)",
+      "n_train": 1273,
+      "cv_R2": 0.0327,
+      "cv_r": 0.1812,
+      "screen": {
+        "demo (KRR)": 0.0297,
+        "demo+global (ENet)": 0.0306,
+        "demo+global+FC (ENet)": 0.0229,
+        "demo+FC (ENet)": 0.0231,
+        "multimodal blend": 0.0249
+      },
+      "n_scored": 320,
+      "heldout_R2": 0.0125,
+      "heldout_r": 0.1233,
+      "heldout_MAE": 0.8624,
+      "heldout_RMSE": 1.0017,
+      "heldout_slope": 0.0217
+    },
+    "externalizing": {
+      "model": "demo (KRR)",
+      "n_train": 1273,
+      "cv_R2": 0.0208,
+      "cv_r": 0.1443,
+      "screen": {
+        "demo (KRR)": 0.0209,
+        "demo+global (ENet)": 0.0183,
+        "demo+global+FC (ENet)": 0.0098,
+        "demo+FC (ENet)": 0.0116,
+        "multimodal blend": 0.0163
+      },
+      "n_scored": 320,
+      "heldout_R2": 0.043,
+      "heldout_r": 0.221,
+      "heldout_MAE": 0.6208,
+      "heldout_RMSE": 0.8573,
+      "heldout_slope": 0.0321
+    },
+    "attention": {
+      "model": "demo (KRR)",
+      "n_train": 1273,
+      "cv_R2": 0.0518,
+      "cv_r": 0.2289,
+      "screen": {
+        "demo (KRR)": 0.0517,
+        "demo+global (ENet)": 0.0446,
+        "demo+global+FC (ENet)": 0.0366,
+        "demo+FC (ENet)": 0.0393,
+        "multimodal blend": 0.0414
+      },
+      "n_scored": 320,
+      "heldout_R2": 0.1058,
+      "heldout_r": 0.3576,
+      "heldout_MAE": 0.7905,
+      "heldout_RMSE": 1.0023,
+      "heldout_slope": 0.0764
+    }
+  },
+  "missing_data": "drop>50%; median+indicator (numeric); missing-as-category (categorical)",
+  "seed": 20260715
+}
