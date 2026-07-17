@@ -1,5 +1,5 @@
-,model,n_train,CV_R2,CV_r
-p_factor,demo+global (ENet),1273,0.1051,0.3244
-internalizing,demo+global (ENet),1273,0.0327,0.1812
-externalizing,demo (KRR),1273,0.0208,0.1443
-attention,demo (KRR),1273,0.0518,0.2289
+target,model,n_train,CV_R2,CV_r
+p_factor,demo+global (ENet),1273,0.1086,0.33
+internalizing,demo+global (ENet),1273,0.0328,0.181
+externalizing,demo (KRR),1273,0.021,0.145
+attention,demo (KRR),1273,0.052,0.229

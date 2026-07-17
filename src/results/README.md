@@ -10,10 +10,12 @@ The held-out test set is the withheld participants listed in
 
 Every candidate is multimodal (demographics + global structural + functional connectivity). For each target we pick
 the best model by **training cross-validation only** (never the held-out score), because the dimensions do not share
-the same optimal feature set. Missing data is handled inside cross-validation: features over 50% missing are dropped,
-categorical gaps (e.g. parental education) become their own "missing" category, and numeric gaps (bmi, or the ~14% of
-subjects without a rest scan) are median-imputed with a missingness indicator. That handling alone lifts the p-factor
-cross-validated R-squared from about 0.09 to about 0.11.
+the same optimal feature set. Missing data is handled inside cross-validation. We tested removing high-missing features
+and it hurts (dropping bmi at about 31% missing lowers the p-factor cross-validated R-squared from about 0.11 to about
+0.09), so bmi is kept. Features over 50% missing would be dropped (none qualify); categorical gaps such as parental
+education become their own "missing" category; numeric gaps (bmi, or the ~14% of subjects without a rest scan) are
+filled by KNN imputation from the ten most similar subjects (tested to beat median), plus a missingness indicator.
+This handling lifts the p-factor cross-validated R-squared from about 0.09 to about 0.11.
 
 ## Files
 
@@ -30,10 +32,10 @@ reliable estimate; the **held-out** score is a single ~320-subject draw and is n
 
 | target | model | CV R2 | CV r | held-out R2 | held-out r |
 |--------|-------|------:|-----:|------------:|-----------:|
-| p_factor | demo+global (ENet) | +0.105 | +0.32 | +0.028 | +0.21 |
-| internalizing | demo+global (ENet) | +0.033 | +0.18 | +0.013 | +0.12 |
+| p_factor | demo+global (ENet) | +0.109 | +0.33 | +0.034 | +0.22 |
+| internalizing | demo+global (ENet) | +0.033 | +0.18 | +0.011 | +0.12 |
 | externalizing | demo (KRR) | +0.021 | +0.14 | +0.043 | +0.22 |
-| **attention** | demo (KRR) | +0.052 | +0.23 | **+0.106** | **+0.36** |
+| **attention** | demo (KRR) | +0.052 | +0.23 | **+0.103** | **+0.35** |
 
 These sit at or above the modern literature ceiling for out-of-sample psychopathology prediction
 ([Marek 2022](https://www.nature.com/articles/s41586-022-04492-9); [Jung 2023](https://pubmed.ncbi.nlm.nih.gov/36580867/),
